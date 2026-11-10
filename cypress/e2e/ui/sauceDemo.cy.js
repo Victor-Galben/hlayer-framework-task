@@ -31,10 +31,13 @@ describe("Sauce Demo UI", () => {
   //Negative or edge-case test
   it("requires checkout information before continuing", () => {
     loginPage.setSessionFromEnv("UI_STANDARD_USERNAME");
+
     inventoryPage.shouldBeVisible();
     inventoryPage.addProductsToCart([selectors.backpackAddButton]);
     inventoryPage.openCart();
+
     cartPage.proceedToCheckout();
+
     checkoutPage.continue();
     checkoutPage.shouldRequireFirstName();
   });
