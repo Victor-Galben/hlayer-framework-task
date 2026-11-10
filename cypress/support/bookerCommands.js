@@ -1,4 +1,4 @@
-import { bookingBody } from "../fixtures/requestResponse.json";
+import { bookingBody } from "../fixtures/api/requestResponse.json";
 
 Cypress.Commands.add("createToken", () => {
   cy.env(["BOOKER_USERNAME", "BOOKER_PASSWORD"]).then((credentials) => {

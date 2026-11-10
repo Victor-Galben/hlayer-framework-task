@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { bookingBody, partialBooking } from "../../fixtures/requestResponse.json";
+import { bookingBody, partialBooking } from "../../fixtures/api/requestResponse.json";
 
 describe("Booker API demo", () => {
   let bookingId;

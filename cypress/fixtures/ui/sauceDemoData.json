@@ -1,0 +1,14 @@
+{
+  "checkout": {
+    "firstName": "Cypress",
+    "lastName": "Tester",
+    "postalCode": "94105"
+  },
+  "expected": {
+    "products": ["Sauce Labs Backpack", "Sauce Labs Bike Light"],
+    "itemTotal": "Item total: $39.98",
+    "tax": "Tax: $3.20",
+    "total": "Total: $43.18",
+    "orderConfirmation": "Thank you for your order!"
+  }
+}
