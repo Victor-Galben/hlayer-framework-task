@@ -15,4 +15,12 @@ describe("Booker API demo", () => {
       });
     });
   });
+
+  afterEach(() => {
+    cy.deleteBooking(bookingId);
+  });
+
+  it("should create a booking and then delete it", () => {
+    cy.log("test");
+  });
 });

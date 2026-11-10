@@ -30,3 +30,32 @@ Cypress.Commands.add("createBooking", () => {
     });
   });
 });
+
+Cypress.Commands.add("getBooking", (bookingId, options = {}) => {
+  cy.createToken().then((authResponse) => {
+    cy.request({
+      method: "GET",
+      url: `/booking/${bookingId}`,
+      headers: {
+        Cookie: `token=${authResponse.body.token}`,
+      },
+      ...options,
+    });
+  });
+});
+
+Cypress.Commands.add("deleteBooking", (bookingId) => {
+  cy.createToken().then((authResponse) => {
+    cy.request({
+      method: "DELETE",
+      url: `/booking/${bookingId}`,
+      headers: {
+        Cookie: `token=${authResponse.body.token}`,
+      },
+    }).then((deleteResponse) => {
+      expect(deleteResponse.status).to.eq(201);
+
+      cy.getBooking(bookingId, { failOnStatusCode: false }).its("status").should("eq", 404);
+    });
+  });
+});
