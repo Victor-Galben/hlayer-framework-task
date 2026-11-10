@@ -10,6 +10,20 @@ class LoginPage {
       cy.getByTestId(selectors.loginButton).click();
     });
   }
+
+  setSessionFromEnv(usernameKey) {
+    cy.env([usernameKey]).then((credentials) => {
+      cy.setSauceDemoSession(credentials[usernameKey]);
+    });
+  }
+
+  shouldShowLockedOutError() {
+    cy.location("pathname").should("eq", "/");
+    cy.getByTestId(selectors.loginError).should(
+      "contain.text",
+      "Sorry, this user has been locked out.",
+    );
+  }
 }
 
 export default new LoginPage();

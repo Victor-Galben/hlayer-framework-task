@@ -26,6 +26,11 @@ class CheckoutPage {
   shouldShowOrderConfirmation(message) {
     cy.getByTestId(selectors.completeHeader).should("have.text", message);
   }
+
+  shouldRequireFirstName() {
+    cy.location("pathname").should("eq", "/checkout-step-one.html");
+    cy.getByTestId(selectors.checkoutError).should("have.text", "Error: First Name is required");
+  }
 }
 
 export default new CheckoutPage();

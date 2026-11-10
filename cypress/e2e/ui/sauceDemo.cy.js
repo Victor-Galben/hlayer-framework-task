@@ -27,4 +27,20 @@ describe("Sauce Demo UI", () => {
     checkoutPage.finishOrder();
     checkoutPage.shouldShowOrderConfirmation(data.expected.orderConfirmation);
   });
+
+  //Negative or edge-case test
+  it("requires checkout information before continuing", () => {
+    loginPage.setSessionFromEnv("UI_STANDARD_USERNAME");
+    inventoryPage.shouldBeVisible();
+    inventoryPage.addProductsToCart([selectors.backpackAddButton]);
+    inventoryPage.openCart();
+    cartPage.proceedToCheckout();
+    checkoutPage.continue();
+    checkoutPage.shouldRequireFirstName();
+  });
+
+  it("shows an error when a locked-out user attempts to log in", () => {
+    loginPage.login("UI_LOCKED_OUT_USERNAME", "UI_PASSWORD");
+    loginPage.shouldShowLockedOutError();
+  });
 });
