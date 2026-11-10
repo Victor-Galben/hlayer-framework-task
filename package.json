@@ -1,0 +1,17 @@
+{
+  "name": "cypresspractice",
+  "version": "1.0.0",
+  "description": "automation test framework with cypress",
+  "author": "victor",
+  "type": "commonjs",
+  "scripts": {
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run",
+    "cy:run:api": "cypress run --spec \"cypress/e2e/api/**/*.cy.js\"",
+    "cy:run:ui": "cypress run --spec \"cypress/e2e/ui/**/*.cy.js\""
+  },
+  "dependencies": {
+    "cypress": "^16.2.0",
+    "dotenv": "^18.0.9"
+  }
+}
