@@ -1,0 +1,61 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch: # allows running the workflow manually from the Actions tab
+
+permissions:
+  contents: read
+
+# Cancel an in-progress run when a newer commit is pushed to the same branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint and format check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm run format:check
+
+  cypress:
+    name: Cypress API and UI tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      # Installs dependencies, caches the Cypress binary and runs the tests
+      - uses: cypress-io/github-action@v7
+        with:
+          command: npm run cy:run
+        env:
+          BOOKER_USERNAME: ${{ secrets.BOOKER_USERNAME }}
+          BOOKER_PASSWORD: ${{ secrets.BOOKER_PASSWORD }}
+          UI_STANDARD_USERNAME: ${{ secrets.UI_STANDARD_USERNAME }}
+          UI_LOCKED_OUT_USERNAME: ${{ secrets.UI_LOCKED_OUT_USERNAME }}
+          UI_PASSWORD: ${{ secrets.UI_PASSWORD }}
+
+      - name: Upload screenshots of failed tests
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
