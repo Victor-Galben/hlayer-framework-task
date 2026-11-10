@@ -22,7 +22,7 @@ cd hlayer-framework-task
 cp .env.example .env
 ```
 
-Set `UI_URL` in `.env` to `https://www.saucedemo.com`. Set the Restful-Booker credentials to credentials accepted by that API. The Sauce Demo usernames and password are its public demo accounts.
+Set the Restful-Booker credentials to credentials accepted by that API. The Sauce Demo usernames and password are its public demo accounts. The Sauce Demo URL is not a secret, so it is set in `cypress.config.js` under `expose` instead of `.env`.
 
 The `.env` file is git-ignored; do not commit secrets. In CI, provide these values through the CI platform's environment variables or secrets instead of committing an `.env` file.
 
@@ -33,7 +33,6 @@ The `.env` file is git-ignored; do not commit secrets. In CI, provide these valu
 | `UI_STANDARD_USERNAME`   | Sauce Demo checkout and checkout-validation tests |
 | `UI_LOCKED_OUT_USERNAME` | Sauce Demo locked-out-user test                   |
 | `UI_PASSWORD`            | Sauce Demo test-user password                     |
-| `UI_URL`                 | Sauce Demo base URL                               |
 
 ### Install and run everything
 

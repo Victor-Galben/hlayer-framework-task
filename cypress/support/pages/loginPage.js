@@ -2,8 +2,8 @@ import selectors from "../../fixtures/ui/sauceDemoSelectors.json";
 
 class LoginPage {
   login(username, password) {
-    cy.env([username, password, "UI_URL"]).then((credentials) => {
-      cy.visit(credentials.UI_URL);
+    cy.env([username, password]).then((credentials) => {
+      cy.visit(Cypress.expose("UI_URL"));
       cy.getByTestId(selectors.username).type(credentials[username]);
       cy.getByTestId(selectors.password).type(credentials[password]);
       cy.getByTestId(selectors.loginButton).click();
